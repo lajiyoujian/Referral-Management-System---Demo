@@ -53,12 +53,9 @@ To set up the Referral Management System on your local machine, follow these ste
 4. (Optional) Create a new database for the system and update the connection string in the configuration file to point to the newly created database.
 5. (Optional) Run the database migrations to create the necessary tables and schema in the database.
 6. The Solution file is located in the referral_management_system_1 folder.  Build the solution to restore the NuGet packages and ensure that there are no build errors.
-7. Start the application, and it will launch the web server hosting
-
- the Referral Management System.
-8. Ensure the backend API is running using the provided "http://localhost:5045/".
-
-To ensure the proper execution of the Referral Management System, the solution is set up to run both the Backend API and Frontend together as multiple startup projects. However, if for some reason they cannot be run simultaneously, it is advised to follow the sequence of running the backend API first, followed by the front end. This order ensures that the necessary backend functionalities are available before interacting with the frontend user interface.
+7. Ensure the backend API is running using the provided "http://localhost:5045/".
+8. Start the application, and it will launch the web server hosting the Referral Management System.
+9. To ensure the proper execution of the Referral Management System, the solution is set up to run both the Backend API and Frontend together as multiple startup projects. However, if for some reason they cannot be run simultaneously, it is advised to follow the sequence of running the backend API first, followed by the front end. This order ensures that the necessary backend functionalities are available before interacting with the frontend user interface.
 
 If you have any questions, please do not hesitate to contact me. 
 
