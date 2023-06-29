@@ -5,8 +5,7 @@ This document provides an overview of the Referral Management System, including 
     <img src="https://github.com/lajiyoujian/Referral-Management-System---Demo/blob/master/DemoGif.gif" alt="Demo GIF" width="700">
 </p>
 
-<img src="/lajiyoujian/Referral-Management-System---Demo/main/demovideo.gif" style="max-width: 100%; display: inline-block;" data-target="animated-image.originalImage">
-**Figure:** *Demo video to go through each page of the Referral Management System.
+          **Figure:** Demo video to go through each page of the Referral Management System.
 
 ### Table of Contents
 1. [Objective](#Objective)
