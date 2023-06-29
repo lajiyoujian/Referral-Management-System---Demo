@@ -14,7 +14,7 @@ This document provides an overview of the Referral Management System, including 
    - [Backend](#Backend)
 3. [Architecture & Package](#Architecture--Package)
 4. [Setup Instructions](#Setup-Instructions)
-5. [Usage](#Usage)
+5. [Usage](#5-Usage)
 6. [License](#License)
 
 ## 1. Objective
@@ -64,7 +64,7 @@ To set up the Referral Management System on your local machine, follow these ste
 
 If you have any questions, please do not hesitate to contact me. 
 
-<b>5.</b> [Usage](#usage)
+## 5. Usage
 
 Once the Referral Management System is up and running, users can access its various features through the web interface. Some key functionalities include:
 
