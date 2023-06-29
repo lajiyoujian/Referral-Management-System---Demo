@@ -1,0 +1,322 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <section class="header">
+        <div class="logo">
+            <i class="ri-menu-line icon icon-0 menu"></i>
+           </div>
+        <div class="search--notification--profile">
+
+            <div class="notification--profile" style="padding-left: 500px;">
+                <div class="picon lock" >
+                    <i class="ri-lock-line"></i>
+                </div>
+                <!-- Logout link with popup -->
+                <div>
+                    <a href="#" id="logoutLink">
+                        <span style="padding-left: 50px;" class="icon icon-8"><i class="ri-logout-box-r-line"></i>Logout</span>
+                    </a>
+                </div>
+
+                <!-- Popup container , Hide YES / No buttons , not needs for now-->
+                <div id="logoutPopup" style="display: none;">
+                    <h2> Confirmation</h2>
+                    <p>Are you sure you want to logout?</p>
+                    @*<button id="logoutConfirm">  Yes  </button>
+                      <button id="logoutCancel">    No  </button>*@
+                </div>
+
+                <!-- Include the custom.js file -->
+                <script src="js/LogoutPopup.js"></script>
+            </div>
+        </div>
+    </section>
+    <section class="main">
+        <div class="sidebar">
+            <ul class="sidebar--items">
+                <li>
+                    <a href="#" id="active--link">
+                        <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
+                        <span class="sidebar--item">Dashboard</span>
+                    </a>
+                </li>
+@*                <li>
+                    <a href="referral">
+                        <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
+                        <span class="sidebar--item">Schedule</span>
+                    </a>
+                </li>*@
+                <li>
+                    <a href="/specialty">
+                        <span class="icon icon-3"><i class="ri-user-2-line"></i></span>
+                        <span class="sidebar--item" style="white-space: nowrap;">Specialist Doctor</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Patients">
+                        <span class="icon icon-4"><i class="ri-user-line"></i></span>
+                        <span class="sidebar--item">Patients</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="provider">
+                        <span class="icon icon-6"><i class="ri-customer-service-line"></i></span>
+                        <span class="sidebar--item">Provider</span>
+                    </a>
+                <li>
+                    <a href="referral">
+                        <span class="icon icon-5"><i class="ri-line-chart-line"></i></span>
+                        <span class="sidebar--item">Referral</span>
+                    </a>
+                </li>
+                </li>
+            </ul>
+        </div>
+        <div class="main--content">
+            <div class="overview">
+                <div class="title">
+                    <h2 class="section--title">Overview</h2>
+                </div>
+                <div class="cards">
+                    <div class="card card-1">
+                        <div class="card--data">
+                            <div class="card--content">
+                                <h5 class="card--title">Total Specialties Doctors</h5>
+                                <!-- Get the total number of specialties -->
+                                <h1> <span id="specialtyCount">0 </span></h1>
+
+                                <script>
+                                    // Get the total number of specialties and update the count
+                                    var specialtyCount = document.getElementById("specialtyCount");
+                                    specialtyCount.textContent = "@Model.Specialties.Count";
+                                </script>
+                             </div>
+                            <i class="ri-user-2-line card--icon--lg"></i>
+                        </div>
+                    </div>
+
+
+                    <div class="card card-2">
+                        <div class="card--data">
+                            <div class="card--content">
+                                <h5 class="card--title">Total Patients Number</h5>
+                                <!-- Get the total number of Patients -->
+                                <h1> <span id="patientCount">0 </span></h1>
+
+                                <script>
+                                    // Get the total number of Patients and update the count
+                                    var patientCount = document.getElementById("patientCount");
+                                    patientCount.textContent = "@Model.Patients.Count";
+                                </script>
+
+                            </div>
+                            <i class="ri-user-line card--icon--lg"></i>
+                        </div>
+                    </div>
+
+                    <div class="card card-4">
+                        <div class="card--data">
+                            <div class="card--content">
+                                <h5 class="card--title">Total Provider Number</h5>
+                                <!-- Get the total number of Provider -->
+                                <h1> <span id="providerCount">0 </span></h1>
+
+                                <script>
+                                    // Get the total number of Provider and update the count
+                                    var providerCount = document.getElementById("providerCount");
+                                    providerCount.textContent = "@Model.Providers.Count";
+                                </script>
+                            </div>
+                            <i class="ri-hotel-bed-line card--icon--lg"></i>
+                        </div>
+                    </div>
+
+                    <div class="card card-3">
+                        <div class="card--data">
+                            <div class="card--content">
+                                <h5 class="card--title">Total Referral Number</h5>
+                                <!-- Get the total number of Referral -->
+                                <h1> <span id="referralCount">0 </span></h1>
+
+                                <script>
+                                    // Get the total number of Referral and update the count
+                                    var referralCount = document.getElementById("referralCount");
+                                    referralCount.textContent = "@Model.Referrals.Count";
+                                </script>
+                                
+                            </div>
+                            <i class="ri-calendar-2-line card--icon--lg"></i>
+                        </div>
+
+                    </div>                   
+                </div>
+            </div>
+
+
+
+
+            <div class="doctors">
+                <div class="title">
+                    <h2 class="section--title">Specialist Doctors</h2>
+                    <div class="doctors--right--btns">
+@*                        <select name="date" id="date" class="dropdown doctor--filter">
+                            <option>Filter</option>
+                            <option value="free">Free</option>
+                            <option value="scheduled">Scheduled</option>
+                        </select>*@
+
+                       @* redirect to the Specialty page*@
+                        <button id="Specialtybtn" class="add"><i class="ri-add-line"></i>Edit Doctors</button>
+                        <script type="text/javascript">
+                            document.getElementById("Specialtybtn").onclick = function () {
+                                location.href = "/Specialty";
+                            };
+                        </script>
+                    </div>
+                </div>
+                <div class="doctors--cards">
+                    @if (Model.Specialties != null && Model.Specialties.Count > 0)
+                    {
+                        foreach (var specialties in Model.Specialties)
+                        {
+                            <a href="/Specialty?name=@specialties.Name" class="doctor--card">
+                                <div class="img--box--cover">
+                                    <div class="img--box">
+                                        @{
+                                           var imagePath = "~/images/doctor" + specialties.SpecialityId + ".jpg";
+                                        }
+                                        <img src="@Url.Content(imagePath)" alt="Specialty Photo" width="100">
+                                    </div>
+                                </div>
+                                <p>@specialties.Name</p>
+                            </a>
+                        }
+                    }
+
+  @*                  <a href="#" class="doctor--card">
+                        <div class="img--box--cover">
+                            <div class="img--box">
+                                <img src="images/doctor1.jpg" alt="">
+                            </div>
+                        </div>
+                        <p class="free">Free</p>
+                    </a>
+                    <a href="#" class="doctor--card">
+                        <div class="img--box--cover">
+                            <div class="img--box">
+                                <img src="images/doctor2.jpg" alt="">
+                            </div>
+                        </div>
+                        <p class="scheduled">Scheduled</p>
+                    </a>
+                    <a href="#" class="doctor--card">
+                        <div class="img--box--cover">
+                            <div class="img--box">
+                                <img src="images/doctor3.jpg" alt="">
+                            </div>
+                        </div>
+                        <p class="scheduled">Scheduled</p>
+                    </a>
+                    <a href="#" class="doctor--card">
+                        <div class="img--box--cover">
+                            <div class="img--box">
+                                <img src="images/doctor4.jpg" alt="">
+                            </div>
+                        </div>
+                        <p class="free">Free</p>
+                    </a>
+                    <a href="#" class="doctor--card">
+                        <div class="img--box--cover">
+                            <div class="img--box">
+                                <img src="images/doctor5.jpg" alt="">
+                            </div>
+                        </div>
+                        <p class="scheduled">Scheduled</p>
+                    </a>
+                    <a href="#" class="doctor--card">
+                        <div class="img--box--cover">
+                            <div class="img--box">
+                                <img src="images/doctor6.jpg" alt="">
+                            </div>
+                        </div>
+                        <p class="free">Free</p>
+                    </a>
+                    <a href="#" class="doctor--card">
+                        <div class="img--box--cover">
+                            <div class="img--box">
+                                <img src="images/doctor7.jpg" alt="">
+                            </div>
+                        </div>
+                        <p class="scheduled">Scheduled</p>
+                    </a>*@
+                </div>
+            </div>
+
+
+            <!-- list out Patients order by date in-->
+            <div class="recent--patients">
+                <div class="title">
+                    <h2 class="section--title">Recent Patients</h2>
+                    <button id="Patientsbtn" class="add"><i class="ri-add-line"></i>Edit Patients</button>
+                    <script type="text/javascript">
+                        document.getElementById("Patientsbtn").onclick = function () {
+                            location.href = "/Patients";
+                        };
+                    </script>
+                </div>
+                <div class="table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone Number</th>
+                                <th>Date In</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patientTableBody">
+
+                          @if (Model.Patients != null && Model.Patients.Count > 0)
+                            {
+
+
+                                foreach (var patient in Model.Patients)
+                                {
+                                    <tr>
+                                         <td>@patient.Name</td>
+                                        <td>@patient.PhoneNum</td>
+                                        <td>@patient.DateIn</td>
+                                    </tr>
+                                } 
+                            }
+
+
+                    </table>
+                </div>
+            </div>
+
+
+
+        </div>
+    </section>
+    <script src="js/main.js"></script>
+    
+</body>
+
+</html>

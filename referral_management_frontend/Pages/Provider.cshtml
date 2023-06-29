@@ -1,0 +1,168 @@
+﻿@page
+@model referral_management_frontend.Pages.ProviderModel
+
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <title>Dashboard</title>
+
+</head>
+
+
+<section class="header">
+    <div class="logo">
+        <i class="ri-menu-line icon icon-0 menu"></i>
+    </div>
+    <!-- Search Provider  -->
+    <div class="search--notification--profile">
+        <div class="search">
+            <form method="get" asp-page-handler="Search">
+              
+                <input type="text" placeholder="Search Provider" name="searchTerm" oninput="searchProvider(this.value)">
+                <button type="submit"><i class="ri-search-2-line"></i></button>
+            </form>
+        </div>
+        <script>
+            function searchProvider(searchTerm) {
+                var tableRows = document.querySelectorAll("#providerTableBody tr");
+
+                for (var i = 0; i < tableRows.length; i++) {
+                    var providerName = tableRows[i].querySelector("td:nth-child(2)").innerText;
+                    if (providerName.toLowerCase().includes(searchTerm.toLowerCase())) {
+                        tableRows[i].style.display = "table-row";
+                    } else {
+                        tableRows[i].style.display = "none";
+                    }
+                }
+            }
+        </script>
+    </div>
+
+    <div class="notification--profile">
+        <div class="picon lock">
+            <i class="ri-lock-line"></i>
+        </div>
+
+        <!-- Logout link with popup -->
+        <div>
+            <a href="#" id="logoutLink">
+                <span style="padding-left: 50px;" class="icon icon-8"><i class="ri-logout-box-r-line"></i>Logout</span>
+            </a>
+        </div>
+
+        <!-- Popup container , Hide YES / No buttons , not needs for now-->
+        <div id="logoutPopup" style="display: none;">
+            <h2> Confirmation</h2>
+            <p>Are you sure you want to logout?</p>
+            @*<button id="logoutConfirm">  Yes  </button>
+            <button id="logoutCancel"> No </button>*@
+        </div>
+        <!-- Include the Log Out popup windows.js file -->
+        <script src="js/LogoutPopup.js"></script>
+
+    </div>
+</section>
+<section class="main">
+    <div class="sidebar">
+        <ul class="sidebar--items">
+            <li>
+                <a href="index">
+                    <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
+                    <span class="sidebar--item">Dashboard</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/specialty">
+                    <span class="icon icon-3"><i class="ri-user-2-line"></i></span>
+                    <span class="sidebar--item" style="white-space: nowrap;">Specialist Doctor</span>
+                </a>
+            </li>
+            <li>
+                <a href="Patients">
+                    <span class="icon icon-4"><i class="ri-user-line"></i></span>
+                    <span class="sidebar--item">Patients</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#" id="active--link">
+                    <span class="icon icon-6"><i class="ri-customer-service-line"></i></span>
+                    <span class="sidebar--item">Provider</span>
+                </a>
+            <li>
+                <a href="referral">
+                    <span class="icon icon-5"><i class="ri-line-chart-line"></i></span>
+                    <span class="sidebar--item">Referral</span>
+                </a>
+            </li>
+            <li>
+                <!-- Get the total number of specialties, Bold and enlarge -->
+                <p style ="margin-top: 50px;"><b style="font-size: 20px;">Total Provider: <span id="ProviderCount">0 </span></b></p>
+
+                <script>
+                    // Get the total number of specialties and update the count
+                    var ProviderCount = document.getElementById("ProviderCount");
+                    ProviderCount.textContent = "@Model.Providers.Count";
+                </script>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="main--content">
+<h1>Provider</h1>
+        <!-- Create Provider -->
+<form method="post" asp-page-handler="Create">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="text" name="address" placeholder="Address" required>
+    <input type="number" name="phoneNum" placeholder="PhoneNum" required>
+    <button type="submit" class="btn btn-primary">Create Provider</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>PhoneNum</th>
+        </tr>
+    </thead>
+            <tbody id="providerTableBody">
+                @foreach (var provider in Model.Providers)
+                {
+                    <tr>
+                        <td>@provider.ProviderId</td>
+                        <td>@provider.Name</td>
+                        <td>@provider.Address</td>
+                        <td>@provider.PhoneNum</td>
+                        <td>
+                            <!-- Update  Provider -->
+                            <form method="post" asp-page-handler="Update" asp-route-providerId="@provider.ProviderId">
+                                <input type="text" name="updatedName" placeholder="Updated Name" required>
+                                <input type="text" name="updatedAddress" placeholder="Updated Address" required>
+                                <input type="number" name="updatedPhoneNum" placeholder="Updated PhoneNum" required>
+                                 <button type="submit" class="btn btn-primary">Update</button>
+                            </form>
+                            <!-- Delete  Provider -->
+                            <form method="post" asp-page-handler="Delete" asp-route-providerId="@provider.ProviderId">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+</table>
+
+    </div>
+</section>
+
+
+<div style="height: 100px;"></div>

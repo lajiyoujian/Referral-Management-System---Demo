@@ -1,0 +1,213 @@
+﻿@page
+
+@model referral_management_frontend.Pages.PatientsModel
+
+@{
+    ViewData["Title"] = "Patients";
+}
+
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <title>Dashboard</title>
+</head>
+
+
+    <section class="header">
+        <div class="logo">
+            <i class="ri-menu-line icon icon-0 menu"></i>
+         </div>
+        <!-- Search patient  -->
+       <div class="search--notification--profile">
+            <div class="search">
+            <form method="get" asp-page-handler="Search">
+                <input type="text" placeholder="Search Patient" name="searchTerm" oninput="searchPatients(this.value)">
+                <button type="submit"><i class="ri-search-2-line"></i></button>
+            </form>
+            </div>
+            <script>
+                function searchPatients(searchTerm) {
+                    var tableRows = document.querySelectorAll("#patientTableBody tr");
+
+                    for (var i = 0; i < tableRows.length; i++) {
+                        var patientName = tableRows[i].querySelector("td:nth-child(2)").innerText;
+                        if (patientName.toLowerCase().includes(searchTerm.toLowerCase())) {
+                            tableRows[i].style.display = "table-row";
+                        } else {
+                            tableRows[i].style.display = "none";
+                        }
+                    }
+                }
+            </script>
+        </div>
+
+         <div class="notification--profile">
+                <div class="picon lock">
+                    <i class="ri-lock-line"></i>
+                </div>
+
+            <!-- Logout link with popup -->
+            <div>
+                <a href="#" id="logoutLink">
+                    <span style="padding-left: 50px;" class="icon icon-8"><i class="ri-logout-box-r-line"></i>Logout</span>
+                </a>
+            </div>
+
+            <!-- Popup container , Hide YES / No buttons , not needs for now-->
+            <div id="logoutPopup" style="display: none;">
+                <h2> Confirmation</h2>
+                <p>Are you sure you want to logout?</p>
+                @*<button id="logoutConfirm">  Yes  </button>
+                <button id="logoutCancel"> No </button>*@
+            </div>
+                  <!-- Include the Log Out popup windows.js file -->
+            <script src="js/LogoutPopup.js"></script>
+
+        </div>
+    </section>
+
+
+    <section class="main">
+        <div class="sidebar">
+            <ul class="sidebar--items">
+                <li>
+                    <a href="index" >
+                        <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
+                        <span class="sidebar--item">Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/specialty">
+                        <span class="icon icon-3"><i class="ri-user-2-line"></i></span>
+                        <span class="sidebar--item" style="white-space: nowrap;">Specialist Doctor</span>
+                    </a>
+                </li>
+                <li>
+                <a href="#" id="active--link">
+                        <span class="icon icon-4"><i class="ri-user-line"></i></span>
+                        <span class="sidebar--item">Patients</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="provider">
+                        <span class="icon icon-6"><i class="ri-customer-service-line"></i></span>
+                        <span class="sidebar--item">Provider</span>
+                    </a>
+                <li>
+                    <a href="referral">
+                        <span class="icon icon-5"><i class="ri-line-chart-line"></i></span>
+                        <span class="sidebar--item">Referral</span>
+                    </a>
+                </li>
+                <li>
+                    <!-- Get the total number of specialties, Bold and enlarge -->
+                <p style="margin-top: 50px;"><b style="font-size: 20px;"> Total Patient: <span id="patientCount">0 </span></b></p>
+
+                    <script>
+                        // Get the total number of specialties and update the count
+                        var patientCount = document.getElementById("patientCount");
+                        patientCount.textContent = "@Model.Patients.Count";
+                </script>
+                </li>
+             </ul>
+         </div>
+
+
+          <div class="main--content">
+
+            <h1>Patients</h1>
+
+                <!-- Add patient form -->
+                <form method="post" asp-page-handler="Create">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" required placeholder=" Name">
+                        <input type="number" class="form-control" id="phonenum" name="phonenum" required placeholder="Phone#">
+
+            </div>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </form>
+
+
+                <!-- Existing patients table -->
+                <div>   
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Patient ID</th>
+                                <th>Name</th>
+                                <th>Phone Number</th>
+                                <th>Date In</th>
+                            </tr>
+                        </thead>
+
+                         <tbody id="patientTableBody">
+
+                          @if (Model.Patients != null && Model.Patients.Count > 0)
+                            {
+
+                                foreach (var patient in Model.Patients)
+                                {
+                                    <tr>
+                                        <td>@patient.PatientId</td>
+                                        <td>@patient.Name</td>
+                                        <td>@patient.PhoneNum</td>
+                                        <td>@patient.DateIn</td>
+                                        <td>
+                                            <!-- View referrals button -->
+                                            <form method="get" asp-page="/PatientViewReferral">
+                                                <input type="hidden" name="patientName" value="@patient.Name" />
+                                                <button type="submit" class="btn btn-secondary">View Referrals</button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <!-- Update patient form -->
+                                            <form method="post" asp-page-handler="Update" asp-route-patientId="@patient.PatientId">
+                                                <div class="form-group">
+                                                    <label for="name">Name:</label>
+                                            <input type="text" class="form-control" id="name" name="updatedPatient.Name" value="@patient.Name" placeholder="Updated Name" required>
+                                            <input type="number" class="form-control" id="phonenum" name="updatedPatient.PhoneNum" placeholder="Updated PhoneNum" required>
+                                                <!-- Update Referral Date In -->
+                                            <label for="dateInput">Referral Date In:</label>
+                                            <input type="date" id="dateInput" name="updatedPatient.DateIn" value="@patient.DateIn.ToString("yyyy-MM-dd")" required>
+
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Update</button>
+                                            </form>
+                                        </td>
+
+
+                                        <td>
+                                            <!-- Delete patients button -->
+                                            <form method="post" asp-page-handler="Delete" asp-route-patientId="@patient.PatientId">
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                } 
+                            }
+                          else
+                            {
+                                <tr>
+                                    <td colspan="2">No patients found.</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+    </section>
+
+    <script src="js/main.js"></script>
+
+
+<div style="height: 100px;"></div>
+

@@ -1,0 +1,186 @@
+﻿@page
+@model PatientViewReferralModel 
+@{
+    ViewData["Title"] = "Referrals";
+}
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <title>Dashboard</title>
+
+</head>
+
+
+<section class="header">
+    <div class="logo">
+        <i class="ri-menu-line icon icon-0 menu"></i>
+        @*<h2>Med<span>Ex</span></h2>*@
+    </div>
+    <div class="search--notification--profile">
+        <div class="notification--profile" style="padding-left: 500px;">
+            <div class="picon lock">
+                <i class="ri-lock-line"></i>
+            </div>
+
+            <!-- Logout link with popup -->
+            <div>
+                <a href="#" id="logoutLink">
+                    <span style="padding-left: 50px;" class="icon icon-8"><i class="ri-logout-box-r-line"></i>Logout</span>
+                </a>
+            </div>
+
+            <!-- Popup container , Hide YES / No buttons , not needs for now-->
+            <div id="logoutPopup" style="display: none;">
+                <h2> Confirmation</h2>
+                <p>Are you sure you want to logout?</p>
+                @*<button id="logoutConfirm">  Yes  </button>
+                <button id="logoutCancel"> No </button>*@
+            </div>
+
+            <!-- Include the custom.js file -->
+            <script src="js/LogoutPopup.js"></script>
+
+        </div>
+</section>
+<section class="main">
+    <div class="sidebar">
+        <ul class="sidebar--items">
+            <li>
+                <a href="index">
+                    <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
+                    <span class="sidebar--item">Dashboard</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/specialty">
+                    <span class="icon icon-3"><i class="ri-user-2-line"></i></span>
+                    <span class="sidebar--item" style="white-space: nowrap;">Specialist Doctor</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="active--link">
+                    <span class="icon icon-4"><i class="ri-user-line"></i></span>
+                    <span class="sidebar--item">Patients</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="provider">
+                    <span class="icon icon-6"><i class="ri-customer-service-line"></i></span>
+                    <span class="sidebar--item">Provider</span>
+                </a>
+            <li>
+                <a href="referral">
+                    <span class="icon icon-5"><i class="ri-line-chart-line"></i></span>
+                    <span class="sidebar--item">Referral</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+
+
+  <div class="main--content">
+        <h1>Referrals for @Request.Query["patientName"]</h1>
+
+        <!-- Create a new referral form -->
+        <h4>Create a new referral</h4>
+        <form method="post" asp-page-handler="Create">
+
+              <!--The Patient Name equal to identical PatientName in query-->
+            <input type="text" name="patient" value="@Model.PatientName" required readonly>
+
+
+
+
+            <!--dropdownlist show Provider Name-->
+            <select name="provider" required>
+                <option value="">Select Provider</option>
+                @foreach (var provider in Model.Providers)
+                {
+                    <option value="@provider.Name">@provider.Name</option>
+                }
+            </select>
+
+            <!--dropdownlist show Specialty Name-->
+            <select name="specialty" required>
+                <option value="">Select Specialty</option>
+                @foreach (var specialty in Model.Specialties)
+                {
+                    <option value="@specialty.Name">@specialty.Name</option>
+                }
+            </select>
+
+            <button type="submit" class="btn btn-primary">Create Referral for @Request.Query["patientName"]</button>
+
+        </form>
+
+
+
+        <!-- Referrals list -->
+        <h2>Referrals List</h2>
+        @if (Model.Referrals != null && Model.Referrals.Count > 0)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Referral </th>
+                        <th>Patient </th>
+                        <th>Provider </th>
+                        <th>Specialty </th>
+          
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var referral in Model.Referrals)
+                    {
+                        @if (referral.Patient == Request.Query["patientName"])
+                        {
+                            <tr>
+                                <td>@referral.ReferralId</td>
+                                <td>@referral.Patient</td>
+                                <td>@referral.Provider</td>
+                                <td>@referral.Specialty</td>
+                                <td>
+                                   <!-- View Specialty button -->
+                                    <form method="get" asp-page="/Specialty">
+                                        <input type="hidden" name="SpecialtyName" value="@referral.Specialty" />
+                                        <button type="submit" class="btn btn-secondary">View Specialty</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <!-- Delete referral  -->
+                                    <form method="post" asp-page-handler="Delete" asp-route-referralId="@referral.ReferralId">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+          
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No referrals found.</p>
+}
+
+</div>
+</section>
+
+<!-- add a textbox the value equeal to query value-->
+<input type="text" name="query" value="@Request.Query["patientName"]" required readonly>
+
+
+
+
+
+<div style="height: 200px;"></div>

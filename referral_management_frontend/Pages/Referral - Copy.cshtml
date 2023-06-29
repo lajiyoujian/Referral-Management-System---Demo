@@ -1,0 +1,189 @@
+﻿@page
+@model ReferralModel
+@{
+    ViewData["Title"] = "Referrals";
+}
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <title>Dashboard</title>
+
+</head>
+
+
+<section class="header">
+    <div class="logo">
+        <i class="ri-menu-line icon icon-0 menu"></i>
+        @*<h2>Med<span>Ex</span></h2>*@
+    </div>
+    <div class="search--notification--profile">
+        <div class="search">
+            <input type="text" placeholder="Search Patient">
+            <button><i class="ri-search-2-line"></i></button>
+        </div>
+        <div class="notification--profile">
+            <div class="picon lock">
+                <i class="ri-lock-line"></i>
+            </div>
+
+            <!-- Logout link with popup -->
+            <div>
+                <a href="#" id="logoutLink">
+                    <span style="padding-left: 50px;" class="icon icon-8"><i class="ri-logout-box-r-line"></i>Logout</span>
+                </a>
+            </div>
+
+            <!-- Popup container , Hide YES / No buttons , not needs for now-->
+            <div id="logoutPopup" style="display: none;">
+                <h2> Confirmation</h2>
+                <p>Are you sure you want to logout?</p>
+                @*<button id="logoutConfirm">  Yes  </button>
+                <button id="logoutCancel"> No </button>*@
+            </div>
+
+            <!-- Include the custom.js file -->
+            <script src="js/LogoutPopup.js"></script>
+
+        </div>
+</section>
+<section class="main">
+    <div class="sidebar">
+        <ul class="sidebar--items">
+            <li>
+                <a href="index">
+                    <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
+                    <span class="sidebar--item">Dashboard</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/specialty">
+                    <span class="icon icon-3"><i class="ri-user-2-line"></i></span>
+                    <span class="sidebar--item" style="white-space: nowrap;">Specialist Doctor</span>
+                </a>
+            </li>
+            <li>
+                <a href="Patients">
+                    <span class="icon icon-4"><i class="ri-user-line"></i></span>
+                    <span class="sidebar--item">Patients</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="provider">
+                    <span class="icon icon-6"><i class="ri-customer-service-line"></i></span>
+                    <span class="sidebar--item">Provider</span>
+                </a>
+            <li>
+                <a href="#" id="active--link">
+                    <span class="icon icon-5"><i class="ri-line-chart-line"></i></span>
+                    <span class="sidebar--item">Referral</span>
+                </a>
+            </li>
+            </li>
+        </ul>
+    </div>
+
+
+  <div class="main--content">
+    <h1>Referrals</h1>
+
+        <!-- Create a new referral form -->
+        <h2>Create a new referral</h2>
+        <form method="post" asp-page-handler="Create">
+
+            <input type="number" name="patientId" placeholder="Patient ID" required>
+            <input type="number" name="providerId" placeholder="Provider ID" required>
+            <input type="number" name="specialtyId" placeholder="Specialty ID" required>
+            <button type="submit" class="btn btn-primary">Create Referral</button>
+      
+        </form>
+
+        <!-- Referrals list -->
+        <h2>Referrals List</h2>
+        @if (Model.Referrals != null && Model.Referrals.Count > 0)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Referral ID</th>
+                        <th>Patient</th>
+                        <th>Provider</th>
+                        <th>Specialty</th>
+          
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var referral in Model.Referrals)
+                    {
+                        
+                        <tr>
+                            <td>@referral.ReferralId</td>
+
+@*
+                            <td>@await GetPatientName(referral.PatientId)</td>
+                            <td>@await GetProviderName(referral.ProviderId)</td>
+                            <td>@await GetSpecialtyName(referral.SpecialtyId)</td>*@
+
+
+
+                            <td>@(Model.Patients.FirstOrDefault(p => p.PatientId == referral.PatientId)?.Name ?? "Unknown")</td>
+                            <td>@(Model.Providers.FirstOrDefault(pr => pr.ProviderId == referral.ProviderId)?.Name ?? "Unknown")</td>
+                            <td>@(Model.Specialties.FirstOrDefault(sp => sp.SpecialityId == referral.SpecialtyId)?.Name ?? "Unknown")</td>
+                            <td>
+
+
+@*                          
+                            <td>@referral.PatientId - @referral.Patient.Name</td>
+                            <td>@referral.ProviderId - @referral.Provider.Name</td>
+                            <td>@referral.SpecialtyId - @referral.Specialty.Name</td>
+ *@                          
+ 
+                            <td>
+
+
+                         <!-- Update referral  -->
+
+                                <form method="post" asp-page-handler="Update" asp-route-referralId="@referral.ReferralId">
+                                    <input type="number" name="updatedPatientId" placeholder="Updated Patient ID" required>
+                                    <input type="number" name="updatedProviderId" placeholder="Updated Provider ID" required>
+                                    <input type="number" name="updatedSpecialtyId" placeholder="Updated Specialty ID" required>
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </form>
+
+                        <!-- Delete referral  -->
+                        <form method="post" asp-page-handler="Delete" asp-route-referralId="@referral.ReferralId">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No referrals found.</p>
+}
+
+</div>
+</section>
+
+
+@*<!-- Get the total number of specialties, Bold and enlarge -->
+<p><b style="font-size: 20px;">Total Referral: <span id="ReferralCount">0 </span></b></p>
+
+<script>
+    // Get the total number of specialties and update the count
+    var ReferralCount = document.getElementById("ReferralCount");
+    ReferralCount.textContent = "@Model.Referrals.Count";
+</script>
+
+<div style="height: 100px;"></div>
+*@

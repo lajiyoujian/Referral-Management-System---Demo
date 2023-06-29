@@ -1,0 +1,233 @@
+﻿@page
+@model referral_management_frontend.Pages.SpecialtyModel
+
+@{
+    ViewData["Title"] = "Specialties";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <title>Dashboard</title>
+
+</head>
+
+
+<section class="header">
+    <div class="logo">
+        <i class="ri-menu-line icon icon-0 menu"></i>
+
+    </div>
+    <!-- Search Specialty  -->
+    <div class="search--notification--profile">
+        <div class="search">
+            <form method="get" asp-page-handler="Search">
+                <input type="text" placeholder="Search Specialty" name="searchTerm" oninput="searchSpecialty(this.value)">
+                <button type="submit"><i class="ri-search-2-line"></i></button>
+            </form>
+        </div>
+        <script>
+            function searchSpecialty(searchTerm) {
+                var tableRows = document.querySelectorAll("#SpecialtyTableBody tr");
+
+                for (var i = 0; i < tableRows.length; i++) {
+                    var SpecialtyName = tableRows[i].querySelector("td:nth-child(2)").innerText;
+                    if (SpecialtyName.toLowerCase().includes(searchTerm.toLowerCase())) {
+                        tableRows[i].style.display = "table-row";
+                    } else {
+                        tableRows[i].style.display = "none";
+                    }
+                }
+            }
+        </script>
+    </div>
+        <div class="notification--profile">
+            <div class="picon lock">
+                <i class="ri-lock-line"></i>
+            </div>
+
+            <!-- Logout link with popup -->
+            <div>
+                <a href="#" id="logoutLink">
+                    <span style="padding-left: 50px;" class="icon icon-8"><i class="ri-logout-box-r-line"></i>Logout</span>
+                </a>
+            </div>
+
+            <!-- Popup container , Hide YES / No buttons , not needs for now-->
+            <div id="logoutPopup" style="display: none;">
+                <h2> Confirmation</h2>
+                <p>Are you sure you want to logout?</p>
+                @*<button id="logoutConfirm">  Yes  </button>
+                <button id="logoutCancel"> No </button>*@
+            </div>
+
+            <!-- Include the custom.js file -->
+            <script src="js/LogoutPopup.js"></script>
+
+        </div>
+</section>
+<section class="main">
+    <div class="sidebar">
+        <ul class="sidebar--items">
+            <li>
+                <a href="index">
+                    <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
+                    <span class="sidebar--item">Dashboard</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#" id="active--link">
+                    <span class="icon icon-3"><i class="ri-user-2-line"></i></span>
+                    <span class="sidebar--item" style="white-space: nowrap;">Specialist Doctor</span>
+                </a>
+            </li>
+            <li>
+                <a href="Patients">
+                    <span class="icon icon-4"><i class="ri-user-line"></i></span>
+                    <span class="sidebar--item">Patients</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="provider">
+                    <span class="icon icon-6"><i class="ri-customer-service-line"></i></span>
+                    <span class="sidebar--item">Provider</span>
+                </a>
+            <li>
+                <a href="referral">
+                    <span class="icon icon-5"><i class="ri-line-chart-line"></i></span>
+                    <span class="sidebar--item">Referral</span>
+                </a>
+            </li>
+            <li>
+                <!-- Get the total number of specialties, Bold and enlarge -->
+                <p style="margin-top: 50px;"><b style="font-size: 20px;">Total Specialties: <span id="specialtyCount">0 </span></b></p>
+
+                <script>
+                    // Get the total number of specialties and update the count
+                    var specialtyCount = document.getElementById("specialtyCount");
+                    specialtyCount.textContent = "@Model.Specialties.Count";
+                </script>
+            </li>
+        
+
+            <a href="Specialty">
+
+                <span class="card card-4 " style="white-space: nowrap; margin-left: -20px;">Refresh Specialty List</span>
+            </a>
+        </ul>
+    </div>
+
+
+    <div class="main--content">
+
+<h1>Specialties</h1>
+
+<!-- Create specialty form -->
+ <form method="post" asp-page-handler="Create" id="createSpecialtyForm" style="display: block;">
+    <div class="form-group">
+        <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+                <input type="text" class="form-control" id="description" name="description" placeholder="Description" required>
+                <input type="number" class="form-control" id="phoneNum" name="phoneNum" placeholder="Phone#" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+ </form>
+
+
+@if (Model.Specialties != null && Model.Specialties.Count > 0)
+{
+    <!-- Existing specialties table -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Specialty ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>PhoneNum</th>
+            </tr>
+        </thead>
+          <tbody id="SpecialtyTableBody">
+            @foreach (var specialty in Model.Specialties)
+            {
+              @*  if @Model.SpecialtyName not null then show all result , otherwise show only query result*@
+
+               @if(Model.SpecialtyName != null)
+                    {
+                     @if (specialty.Name == Request.Query["specialtyName"])
+                           @* @if (string.Equals(specialty.Name, Request.Query["specialtyName"], StringComparison.OrdinalIgnoreCase))*@
+                        {
+                        <tr>
+                            <td>@specialty.SpecialityId</td>
+                            <td>@specialty.Name</td>
+                            <td>@specialty.Description</td>
+                            <td>@specialty.PhoneNum</td>
+                            <td>     
+                                <div class="img--box">
+
+                                        @{
+                                            var imagePath = "~/images/doctor" + @specialty.SpecialityId + ".jpg";
+                                        }
+                                        <img src="@Url.Content(imagePath)" alt="Specialty Photo" width="100">
+                                </div>
+                            </td>
+                         </tr>
+                        }
+                      }
+               else
+                    {
+                            <tr>
+                                <td>@specialty.SpecialityId</td>
+                                <td>@specialty.Name</td>
+                                <td>@specialty.Description</td>
+                                <td>@specialty.PhoneNum</td>
+                              <td>
+                                    <div class="img--box">
+  
+                                        @{
+                                            var imagePath = "~/images/doctor" + @specialty.SpecialityId + ".jpg";
+                                        }
+                                        <img src="@Url.Content(imagePath)" alt="Specialty Photo" width="100">
+                                    </div>
+                
+                              </td>
+                                <td>
+                                    <!-- Update specialty form -->
+                                    <form method="post" asp-page-handler="Update" asp-route-specialtyId="@specialty.SpecialityId">
+                                        <div class="form-group">
+                                            <label for="name">Name:</label>
+                                            <input type="text" class="form-control" id="name" name="updatedSpecialty.Name" value="@specialty.Name" required>
+                                            <input type="text" class="form-control" id="description" name="updatedSpecialty.Description" value="@specialty.Description" required>
+                                            <input type="number" class="form-control" id="phoneNum" name="updatedSpecialty.PhoneNum" value="@specialty.PhoneNum" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <!-- Delete specialty button -->
+                                    <form method="post" asp-page-handler="Delete" asp-route-specialtyId="@specialty.SpecialityId">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                    }
+                 }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No specialties found.</p>
+}
+
+</div>
+</section>
+
+
+
+<div style="height: 100px;"></div>
+
