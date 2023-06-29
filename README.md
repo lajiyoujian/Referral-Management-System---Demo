@@ -9,13 +9,13 @@ This document provides an overview of the Referral Management System, including 
 
 ### Table of Contents
 1. [Objective](#Objective)
-2. [Design](#Design)
+2. [Design](#2-Design)
    - [Frontend](#Frontend)
    - [Backend](#Backend)
-3. [Architecture & Package](#Architecture--Package)
-4. [Setup Instructions](#Setup-Instructions)
+3. [Architecture & Package](#3-Architecture--Package)
+4. [Setup Instructions](#4-Setup-Instructions)
 5. [Usage](#5-Usage)
-6. [License](#License)
+6. [License](#6-License)
 
 ## 1. Objective
 The main objective of this assignment is to build a robust referral management system consisting of a back-end API and a front-end interface. The system should enable users to effectively manage patient referrals, providers, and specialties, and perform CRUD operations.
@@ -31,7 +31,7 @@ The backend of the system is developed using the ASP.NET Core Web API framework,
 
 The backend interacts with a database management system to store and retrieve data. It utilizes Entity Framework Core as the Object-Relational Mapping (ORM) tool to simplify database operations and provide seamless integration between the application and the underlying database.
 
- ## 3 Architecture & Package
+ ## 3. Architecture & Package
 The Referral Management System follows a layered architecture to ensure the separation of concerns and maintainability of the codebase. 
 
 The Framework:
