@@ -41,18 +41,18 @@ The Referral Management System follows a layered architecture to ensure the sepa
 
 The layered architecture promotes modularity, flexibility, and maintainability of the system. It allows for easy extension or modification of individual layers without impacting the entire system.
 
-The Framework:
-Microsoft.AspNetCore.App
-Microsoft.NetCore.App
+    The Framework:
+    Microsoft.AspNetCore.App
+    Microsoft.NetCore.App
 
-Packages:
-Microsoft.EntityFrameworkCore
-Microsoft.EntityFrameworkCore.Design
-Microsoft.EntityFrameworkCore.Sqlite: SQLite provider for Entity Framework Core.
-Microsoft.EntityFrameworkCore.Tools: Tools for Entity Framework Core migrations.
-Microsoft.Extension.Http
-Microsoft.Extension.DependencyInjection
-System.Net.Http.Json
+    Packages:
+    Microsoft.EntityFrameworkCore
+    Microsoft.EntityFrameworkCore.Design
+    Microsoft.EntityFrameworkCore.Sqlite: SQLite provider for Entity Framework Core.
+    Microsoft.EntityFrameworkCore.Tools: Tools for Entity Framework Core migrations.
+    Microsoft.Extension.Http
+    Microsoft.Extension.DependencyInjection
+    System.Net.Http.Json
 
 ## 4. Setup Instructions
 To set up the Referral Management System on your local machine, follow these steps:
