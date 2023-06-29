@@ -1,6 +1,8 @@
 ## Referral Management System
 
 This document provides an overview of the Referral Management System, including its design, architecture, and instructions for setting up and using the system. The Referral Management System is a web application developed to manage and track referrals between medical specialists, patients, and providers. The system is a web application developed using .NET 7.0 Standard Term Support Framework.
+<img src="/lajiyoujian/Referral-Management-System---Demo/main/demovideo.gif" style="max-width: 100%; display: inline-block;" data-target="animated-image.originalImage">
+Figure: Demo video to go through each page of the Referral management System.
 
 ### Table of Contents
 1. [Objective](#Objective)
