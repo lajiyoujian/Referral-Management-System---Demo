@@ -34,9 +34,9 @@ The backend interacts with a database management system to store and retrieve da
  ## 3. Architecture & Package
 The Referral Management System follows a layered architecture to ensure the separation of concerns and maintainability of the codebase. The architecture consists of the following layers:
 
-1. Presentation Layer: This layer represents the frontend components responsible for rendering the user interface and handling user interactions.
-2. Application Layer: This layer contains the business logic of the system. It coordinates the interaction between the frontend and the backend, performs necessary data manipulations, and enforces business rules.
-3. Data Access Layer: This layer provides an abstraction over the database and handles data access operations. It utilizes Entity Framework Core to interact with the underlying database management system.
+1. Presentation Layer: This layer represents the frontend components responsible for rendering the user interface and handling user interactions. This project comprises HTML, CSS, and JavaScript files that are responsible for creating an intuitive and visually appealing user experience.
+2. Application Layer: The application layer acts as a bridge between the frontend and backend, facilitating communication and coordination. It is responsible for processing user input, manipulating data, and enforcing business rules to ensure the application adheres to defined requirements and logic.
+3. Data Access Layer: This layer provides an abstraction over the database and handles data access operations. It interacts with the underlying database management system, The SQLite in this project is responsible for executing database queries, retrieving and updating data, and ensuring data integrity, using technologies Entity Framework Core. 
 4. Database Layer: This layer represents the actual database where the system's data is stored.
 
 The layered architecture promotes modularity, flexibility, and maintainability of the system. It allows for easy extension or modification of individual layers without impacting the entire system.
