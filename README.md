@@ -64,7 +64,7 @@ To set up the Referral Management System on your local machine, follow these ste
 
 If you have any questions, please do not hesitate to contact me. 
 
-## 5. Usage
+ 5. ##Usage
 Once the Referral Management System is up and running, users can access its various features through the web interface. Some key functionalities include:
 
 - Creating new Patients, Providers, Specialties, and Referrals by providing necessary patient and specialty information.
@@ -75,7 +75,7 @@ Once the Referral Management System is up and running, users can access its vari
 
 The system provides an intuitive and user-friendly interface to streamline the referral management process and improve overall efficiency.
 
-## 7. License
+ 7. ## License
 The Referral Management System is intended for assessment, display, and demonstration purposes only. Ask permission for reuse.
 
 ---
