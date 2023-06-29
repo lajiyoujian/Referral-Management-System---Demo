@@ -32,7 +32,14 @@ The backend of the system is developed using the ASP.NET Core Web API framework,
 The backend interacts with a database management system to store and retrieve data. It utilizes Entity Framework Core as the Object-Relational Mapping (ORM) tool to simplify database operations and provide seamless integration between the application and the underlying database.
 
  ## 3. Architecture & Package
-The Referral Management System follows a layered architecture to ensure the separation of concerns and maintainability of the codebase. 
+The Referral Management System follows a layered architecture to ensure the separation of concerns and maintainability of the codebase. The architecture consists of the following layers:
+
+1. Presentation Layer: This layer represents the frontend components responsible for rendering the user interface and handling user interactions.
+2. Application Layer: This layer contains the business logic of the system. It coordinates the interaction between the frontend and the backend, performs necessary data manipulations, and enforces business rules.
+3. Data Access Layer: This layer provides an abstraction over the database and handles data access operations. It utilizes Entity Framework Core to interact with the underlying database management system.
+4. Database Layer: This layer represents the actual database where the system's data is stored.
+
+The layered architecture promotes modularity, flexibility, and maintainability of the system. It allows for easy extension or modification of individual layers without impacting the entire system.
 
 The Framework:
 Microsoft.AspNetCore.App
@@ -46,8 +53,6 @@ Microsoft.EntityFrameworkCore.Tools: Tools for Entity Framework Core migrations.
 Microsoft.Extension.Http
 Microsoft.Extension.DependencyInjection
 System.Net.Http.Json
-
-The layered architecture promotes modularity, flexibility, and maintainability of the system. It allows for easy extension or modification of individual layers without impacting the entire system.
 
 ## 4. Setup Instructions
 To set up the Referral Management System on your local machine, follow these steps:
