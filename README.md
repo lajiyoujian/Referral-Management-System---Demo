@@ -8,7 +8,7 @@ This document provides an overview of the Referral Management System, including 
           **Figure:** Demo video to go through each page of the Referral Management System.
 
 ### Table of Contents
-1. [Objective](#Objective)
+1. [Objective](#1-Objective)
 2. [Design](#2-Design)
    - [Frontend](#Frontend)
    - [Backend](#Backend)
@@ -76,7 +76,7 @@ Once the Referral Management System is up and running, users can access its vari
 
 The system provides an intuitive and user-friendly interface to streamline the referral management process and improve overall efficiency.
 
-## 6_ License
+## 6. License
 The Referral Management System is intended for assessment, display, and demonstration purposes only. Ask permission for reuse.
 
 ---
