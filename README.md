@@ -2,20 +2,20 @@
 
 This document provides an overview of the Referral Management System, including its design, architecture, and instructions for setting up and using the system. The Referral Management System is a web application developed to manage and track referrals between medical specialists, patients, and providers. The system is a web application developed using .NET 7.0 Standard Term Support Framework.
 <p align="center">
-    <img src="demovideo.gif", width="900">
+    <img src="https://github.com/lajiyoujian/Referral-Management-System---Demo/blob/master/DemoGif.gif" alt="Demo GIF" width="700">
 </p>
-<img src="/lajiyoujian/Referral-Management-System---Demo/main/demovideo.gif" style="max-width: 100%; display: inline-block;" data-target="animated-image.originalImage">
-Figure: Demo video to go through each page of the Referral Management System.
+
+          **Figure:** Demo video to go through each page of the Referral Management System.
 
 ### Table of Contents
-1. [Objective](#Objective)
-2. [Design](#Design)
+1. [Objective](#1-Objective)
+2. [Design](#2-Design)
    - [Frontend](#Frontend)
    - [Backend](#Backend)
-3. [Architecture & Package](#Architecture--Package)
-4. [Setup Instructions](#Setup-Instructions)
-5. [Usage](#Usage)
-6. [License](#License)
+3. [Architecture & Package](#3-Architecture--Package)
+4. [Setup Instructions](#4-Setup-Instructions)
+5. [Usage](#5-Usage)
+6. [License](#6-License)
 
 ## 1. Objective
 The main objective of this assignment is to build a robust referral management system consisting of a back-end API and a front-end interface. The system should enable users to effectively manage patient referrals, providers, and specialties, and perform CRUD operations.
@@ -31,7 +31,7 @@ The backend of the system is developed using the ASP.NET Core Web API framework,
 
 The backend interacts with a database management system to store and retrieve data. It utilizes Entity Framework Core as the Object-Relational Mapping (ORM) tool to simplify database operations and provide seamless integration between the application and the underlying database.
 
-## 3. Architecture & Package
+ ## 3. Architecture & Package
 The Referral Management System follows a layered architecture to ensure the separation of concerns and maintainability of the codebase. 
 
 The Framework:
@@ -49,7 +49,7 @@ System.Net.Http.Json
 
 The layered architecture promotes modularity, flexibility, and maintainability of the system. It allows for easy extension or modification of individual layers without impacting the entire system.
 
-### 4. Setup Instructions
+## 4. Setup Instructions
 To set up the Referral Management System on your local machine, follow these steps:
 
 1. Clone the project repository from GitHub.
@@ -65,6 +65,7 @@ To set up the Referral Management System on your local machine, follow these ste
 If you have any questions, please do not hesitate to contact me. 
 
 ## 5. Usage
+
 Once the Referral Management System is up and running, users can access its various features through the web interface. Some key functionalities include:
 
 - Creating new Patients, Providers, Specialties, and Referrals by providing necessary patient and specialty information.
@@ -75,7 +76,7 @@ Once the Referral Management System is up and running, users can access its vari
 
 The system provides an intuitive and user-friendly interface to streamline the referral management process and improve overall efficiency.
 
-## 7. License
+## 6. License
 The Referral Management System is intended for assessment, display, and demonstration purposes only. Ask permission for reuse.
 
 ---
