@@ -52,7 +52,7 @@ To set up the Referral Management System on your local machine, follow these ste
 3. The application contains a pre-built SQLite database (referral_management.db). If you decide to use the pre-built database, then ignore steps 4 & 5.
 4. (Optional) Create a new database for the system and update the connection string in the configuration file to point to the newly created database.
 5. (Optional) Run the database migrations to create the necessary tables and schema in the database.
-6. Build the solution to restore the NuGet packages and ensure that there are no build errors.
+6. The Solution file is located in the referral_management_system_1 folder.  Build the solution to restore the NuGet packages and ensure that there are no build errors.
 7. Start the application, and it will launch the web server hosting
 
  the Referral Management System.
