@@ -31,7 +31,7 @@ The backend of the system is developed using the ASP.NET Core Web API framework,
 
 The backend interacts with a database management system to store and retrieve data. It utilizes Entity Framework Core as the Object-Relational Mapping (ORM) tool to simplify database operations and provide seamless integration between the application and the underlying database.
 
- # 3. ## Architecture & Package
+ **3.** ## Architecture & Package
 The Referral Management System follows a layered architecture to ensure the separation of concerns and maintainability of the codebase. 
 
 The Framework:
