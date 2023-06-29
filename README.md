@@ -49,7 +49,7 @@ System.Net.Http.Json
 
 The layered architecture promotes modularity, flexibility, and maintainability of the system. It allows for easy extension or modification of individual layers without impacting the entire system.
 
-# 4_ Setup Instructions
+# 4. Setup Instructions
 To set up the Referral Management System on your local machine, follow these steps:
 
 1. Clone the project repository from GitHub.
@@ -64,7 +64,7 @@ To set up the Referral Management System on your local machine, follow these ste
 
 If you have any questions, please do not hesitate to contact me. 
 
-# 5_ Usage
+ <b>5.</b> # Usage
 Once the Referral Management System is up and running, users can access its various features through the web interface. Some key functionalities include:
 
 - Creating new Patients, Providers, Specialties, and Referrals by providing necessary patient and specialty information.
